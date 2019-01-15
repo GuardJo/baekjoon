@@ -11,6 +11,7 @@ public class p1001 {
 			int a = Integer.parseInt(str.split(" ")[0]);
 			int b = Integer.parseInt(str.split(" ")[1]);
 			int result = a-b;
+			int c = 0;
 			System.out.println(result);
 		}
 		in.close();
