@@ -24,7 +24,10 @@ public class p1157 {
 				max = alpha[i];
 				maxIndex = i;
 			}
-			else if (max != 0 && max == alpha[i]) {
+		}
+		
+		for (int i = 0; i < alpha.length; i++) {
+			if (max == alpha[i] && maxIndex != i) {
 				System.out.println("?");
 				System.exit(0);
 			}
