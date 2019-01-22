@@ -5,29 +5,40 @@ import java.util.Scanner;
 public class p2448 {
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		StringBuilder sb = new StringBuilder();
 		int num = in.nextInt();
-		String[] star = {"  *  ", " * * ", "*****"};
-		for(int i = 0; i < star.length; i++) {
-			sb.append(star[i] + '\n');
-		}
-		makeStar(0, 0, num, sb);
+		String[] star =  new String[num];
+		star[0] = "  *  ";
+		star[1] = " * * ";
+		star[2] = "*****";
 
+		if (num > 3) {
+			makeStar(3, num, star);
+		}
+		for (int i = 0; i < star.length; i++) {
+			System.out.println(star[i]);
+		}
 		in.close();
 	}
 
-	public static void makeStar(int left, int right, int n, StringBuilder b) {
-		for (int i = 0; i < left; i++) {
-			b.append(" ");
-		}
+	private static void makeStar(int start, int num, String[] star) {
+		// TODO Auto-generated method stub
 		
-		for (int i = 0; i < right; i++) {
-			b.append(" ");
+		for (int i = start; i < start * 2; i++) {
+			star[i] = star[i-start] + " " + star[i-start];
 		}
-		if (n <= 3) {
-			System.out.println(b.toString());
-			System.exit(0);
+		String space = "";
+		for (int i = 0; i < start; i++) {
+			space += " ";
 		}
-		makeStar(0, 0, n-(n/2), b);
+		for (int i = 0; i < start; i++) {
+			star[i] = space + star[i] + space;
+		}
+		if (start*2 == num) {
+			return;
+		}
+		else {
+			makeStar(start*2, num, star);
+		}
 	}
+
 }
