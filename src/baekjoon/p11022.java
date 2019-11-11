@@ -25,5 +25,6 @@ public class p11022 {
         for (int i = 0; i < result.length; i++) {
             System.out.println("Case #" + (i+1) + ": " + aa[i] + " + " + bb[i] + " = " + result[i]);
         }
+        in.close();
     }
 }
