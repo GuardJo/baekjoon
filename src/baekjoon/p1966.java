@@ -1,41 +1,58 @@
 package baekjoon;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class p1966 {
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		Queue<Integer> priority = new LinkedList<>();
-		
-		int loopCount = in.nextInt();
-		int searchIndex = 0;
-		int printCount = 0;
-		
-		for (int i = 0; i < loopCount; i++) {
-			String s = in.nextLine();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int count = Integer.parseInt(br.readLine());
+		boolean finished = false;
+		int resultCount = 0;
+
+		for (int i = 0; i < count; i++) {
+			String s = br.readLine();
+			String priority = br.readLine();
 			String[] str = s.split(" ");
-			searchIndex = Integer.parseInt(str[1]);
-			String element = in.nextLine();
-			String[] elements = element.split(" ");
-			for (int j = 0; j < elements.length; j++) {
-				priority.add(Integer.parseInt(elements[j]));
+			int priorityIndex = Integer.parseInt(str[1]);
+			str = priority.split(" ");
+			Queue<Integer> indexQ = new LinkedList<>();
+			Queue<Integer> priorityQ = new LinkedList<>();
+			Integer[] pivots = new Integer[str.length];
+			int pivot = 0;
+
+			for (int j = 0; j < str.length; j++) {
+				indexQ.offer(j);
+				priorityQ.offer(Integer.parseInt(str[j]));
+				pivots[j] = Integer.parseInt(str[j]);
 			}
-			int current = priority.poll();
-			Iterator<Integer> iter = priority.iterator();
-			
-			while (iter.hasNext()) {
-				if (current < iter.next()) {
-					priority.add(current);
+			Arrays.sort(pivots, Comparator.reverseOrder());
+
+			while (!finished) {
+				if (priorityQ.peek() != pivots[pivot]) {
+					int tmp = priorityQ.poll();
+					priorityQ.offer(tmp);
+					tmp = indexQ.poll();
+					indexQ.offer(tmp);
 				}
-				else {
-					printCount++;
+				else if (priorityQ.peek() == pivots[pivot]) {
+					if (indexQ.peek() == priorityIndex) {
+						finished = true;
+					}
+					else {
+						indexQ.poll();
+						priorityQ.poll();
+					}
+					pivot++;
 				}
 			}
+			finished = false;
+			bw.write(pivot + "\n");
 		}
-		
-		in.close();
+
+		br.close();
+		bw.flush();
+		bw.close();
 	}
 }
