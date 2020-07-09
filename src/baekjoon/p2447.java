@@ -7,26 +7,44 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class p2447 {
-	public static String makeStar(int n, int c) {
-		if (c < 1) {
-			return "\n";
+	public static void makeStar(String[][] arr, int n, int x, int y) {
+		if (n == 1) {
+			arr[x][y] = "*";
 		}
 		else {
-			for (int i = 0; i < n; i++) {
-				System.out.print("*");
+			int div = n / 3;
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (i == 1 && j == 1) {
+						continue;
+					} else {
+						makeStar(arr, div, x + (div * i), y + (div * j));
+					}
+				}
 			}
-			System.out.println();
-			return makeStar(n, c-1);
 		}
 	}
-	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
 		int number = Integer.parseInt(br.readLine());
 
-		bw.append(makeStar(number, number));
+		String[][] stars = new String[number][number];
+		for (int i = 0; i < stars.length; i++) {
+			for (int j = 0; j < stars.length; j++) {
+				stars[i][j] = " ";
+			}
+		}
+
+		makeStar(stars, number, 0, 0);
+
+		for (int i = 0; i < stars.length; i++) {
+			for (int j = 0; j < stars.length; j++) {
+				bw.write(stars[i][j]);
+			}
+			bw.write("\n");
+		}
 
 		br.close();
 		bw.flush();
