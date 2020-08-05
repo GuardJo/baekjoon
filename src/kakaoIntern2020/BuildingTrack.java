@@ -37,7 +37,6 @@ public class BuildingTrack {
     }
 
     private static int solution(int[][] board) {
-        int answer = Integer.MAX_VALUE;
         int[][] direction = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         int [][] visited = new int [board.length][board.length];
         Queue<Element> q = new LinkedList<>();
@@ -80,6 +79,6 @@ public class BuildingTrack {
                 }
             }
         }
-        return answer;
+        return visited[endX][endY];
     }
 }
