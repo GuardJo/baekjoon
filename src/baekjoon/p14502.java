@@ -60,7 +60,7 @@ public class p14502 {
                 qy.offer(y2);
             }
         }
-
+        max = (row * col) - wallCount - max;
         bw.write(max + "\n");
 
         br.close();
@@ -69,10 +69,15 @@ public class p14502 {
     }
 
     private static int findSafeArea(int x1, int y1, int x2, int y2, int x3, int y3, int[][] lab, Queue<Integer> v) {
-        int[][] mat = lab.clone();
+        int[][] mat = new int[lab.length][lab[0].length];
         Queue<Integer> virus = new LinkedList<>();
         boolean[][] visited = new boolean[mat.length][mat[0].length];
         int[][] direction = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                mat[i][j] = lab[i][j];
+            }
+        }
         mat[x1][y1] = 1;
         mat[x2][y2] = 1;
         mat[x3][y3] = 1;
