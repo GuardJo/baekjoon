@@ -1,4 +1,4 @@
-package frienTripTest;
+package FrienTripTest;
 
 import java.io.*;
 
