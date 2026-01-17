@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: 'mysql:8.0'
+    environment:
+      MYSQL_DATABASE: sqltest
+      MYSQL_USER: sqltest
+      MYSQL_PASSWORD: password1!
+      MYSQL_ROOT_PASSWORD: password1!
+    ports:
+      - "3306:3306"
